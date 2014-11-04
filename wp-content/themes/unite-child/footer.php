@@ -28,4 +28,8 @@
 <?php wp_footer(); ?>
 
 </body>
+<!-- 
+Produced through the help of the ALMIGHTY 
+MCGI.org
+-->
 </html>
