@@ -17,8 +17,11 @@ jQuery(document).ready(function(){
 		jQuery(this).siblings('img').trigger('click');
 	});	
 	
-	jQuery('#myFormModal').on('shown.bs.modal', function(e){
-		console.log(e);
+	jQuery('.vote-btn').on('click', function(e){
+		var currentTarget = $(e.currentTarget);
+		jQuery('#postID').val(currentTarget.attr('rel'));
+		jQuery('#myFormModal').modal();
+		return false;
 	});
 		
 })

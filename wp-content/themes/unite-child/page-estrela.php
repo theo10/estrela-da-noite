@@ -7,65 +7,54 @@
 
 get_header(); 
 $home = get_home_url();
+$default_args = array('posts_per_page'=> -1,
+					'order'=>'ASC',
+					'orderby'=>'title');
+global $post;
 ?>
 
 	<div id="primary" class="content-area col-sm-12 col-md-12">
 		<main id="main" class="site-main" role="main">
 			<h3>Male</h3>
 			<ul class="row">
+			<?php 
+			$default_args['category_name']='male';
+			$query = new WP_Query($default_args);
+			while ( $query->have_posts() ) {
+				$query->the_post();
+			?>
 			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/jamir.jpg" />
-				<h4>Jamir Garcia</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
+				<?php 
+				if ( has_post_thumbnail() ) {
+					the_post_thumbnail('full');
+				}
+				?>
+				<h4><?php the_title();?></h4>
+				<a href="<?php the_permalink();?>" class="btn btn-default vote-btn" rel="<?php the_ID();?>">Vote</a>
 			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/jamir.jpg" />
-				<h4>Jamir Garcia</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/jamir.jpg" />
-				<h4>Jamir Garcia</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/jamir.jpg" />
-				<h4>Jamir Garcia</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/jamir.jpg" />
-				<h4>Jamir Garcia</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
+			<?php } 
+			wp_reset_postdata();
+			?>
 			</ul>
 			<h3>Female</h3>
-			<ul class="row">
+			<?php 
+			$default_args['category_name']='female';
+			$query = new WP_Query($default_args);
+			while ( $query->have_posts() ) {
+				$query->the_post();
+			?>
 			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/kitchie.jpg" />
-				<h4>Kitchie Nadal</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
+				<?php 
+				if ( has_post_thumbnail() ) {
+					the_post_thumbnail('full');
+				}
+				?>
+				<h4><?php the_title();?></h4>
+				<a href="<?php the_permalink();?>" class="btn btn-default vote-btn" rel="<?php the_ID();?>">Vote</a>
 			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/kitchie.jpg" />
-				<h4>Kitchie Nadal</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/kitchie.jpg" />
-				<h4>Kitchie Nadal</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/kitchie.jpg" />
-				<h4>Kitchie Nadal</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
-				<img src="<?php echo $home?>/kitchie.jpg" />
-				<h4>Kitchie Nadal</h4>
-				<a href="#" class="btn btn-default vote-btn" data-toggle="modal" data-target="#myFormModal">Vote</a>
-			</li>
+			<?php } 
+			wp_reset_postdata();
+			?>
 			</ul>
 
 		</main><!-- #main -->
@@ -95,8 +84,11 @@ $home = get_home_url();
 						<form class="form-inline" role="form">
 							<div class="form-group">
 								<label class="sr-only" for="corpID">Corp ID</label>
-								<input type="text" required="required" class="form-control" id="corpID" placeholder="Corp ID" />
+								<input type="text" required="required" class="form-control" id="corpID" name="corpID" placeholder="Corp ID" />
 							 </div>
+							<?php wp_nonce_field('votesubmit') ?>
+							<input type="hidden" id="postID" name="postID" value="" />
+							<input type="hidden" id="pageID" name="pageID" value="<?php echo $post->ID?>" />
 							<input type="submit" class="btn btn-default" value="Vote" />
 						</form>
 					</div>
