@@ -12,7 +12,7 @@ $home = get_home_url();
 	<div id="primary" class="content-area col-sm-12 col-md-12">
 		<main id="main" class="site-main" role="main">
 			<h3>Male</h3>
-			<ul class="row">
+			<ul class="row star-list">
 			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 				<img src="<?php echo $home?>/jamir.jpg" />
 				<h4>Jamir Garcia</h4>
@@ -40,7 +40,7 @@ $home = get_home_url();
 			</li>
 			</ul>
 			<h3>Female</h3>
-			<ul class="row">
+			<ul class="row star-list">
 			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 				<img src="<?php echo $home?>/kitchie.jpg" />
 				<h4>Kitchie Nadal</h4>

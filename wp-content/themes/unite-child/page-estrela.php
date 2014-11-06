@@ -16,7 +16,7 @@ global $post;
 	<div id="primary" class="content-area col-sm-12 col-md-12">
 		<main id="main" class="site-main" role="main">
 			<h3>Male</h3>
-			<ul class="row">
+			<ul class="row star-list">
 			<?php 
 			$default_args['category_name']='male';
 			$query = new WP_Query($default_args);
@@ -37,6 +37,7 @@ global $post;
 			?>
 			</ul>
 			<h3>Female</h3>
+			<ul class="row star-list">
 			<?php 
 			$default_args['category_name']='female';
 			$query = new WP_Query($default_args);
