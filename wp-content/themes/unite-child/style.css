@@ -17,20 +17,24 @@ This theme, like WordPress, is licensed under the GPL.
 Unite is based on Underscores http://underscores.me/, (C) 2012-2013 Automattic, Inc.
 
 */
-      ul {         
+      #primary ul {         
           padding:0 0 0 0;
           margin:0 0 0 0;
       }
-      ul li {     
+      #primary  ul li {     
           list-style:none;
           margin-bottom:25px;           
       }
-      ul li img,ul li h4 {
+      #primary  ul li img,#primary  ul li h4 {
           cursor: pointer;
       }
-	  ul li h4 {
+	  #primary  ul li h4 {
 		  font-size:18px;
       }
 	  .modal-content{
 		background:#303030;
+	  }
+	  p#errorMessage{
+		padding:10px;
+		color:#000;
 	  }

@@ -9,12 +9,20 @@ get_header();
 $home = get_home_url();
 $default_args = array('posts_per_page'=> -1,
 					'order'=>'ASC',
-					'orderby'=>'title');
+					'orderby'=>'title',
+					'post_type'=>'star');
 global $post;
 ?>
 
 	<div id="primary" class="content-area col-sm-12 col-md-12">
 		<main id="main" class="site-main" role="main">
+			<?php
+			if($msg!=''){
+			?>
+				<p id="errorMessage" class="<?php echo $msgClass;?>"><?php echo $msg;?></p>
+			<?php
+			}
+			?>
 			<h3>Male</h3>
 			<ul class="row star-list">
 			<?php 
@@ -22,15 +30,19 @@ global $post;
 			$query = new WP_Query($default_args);
 			while ( $query->have_posts() ) {
 				$query->the_post();
+				$category = get_the_category();
 			?>
 			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 				<?php 
 				if ( has_post_thumbnail() ) {
-					the_post_thumbnail('full');
+					the_post_thumbnail(array(150,200));
+					?>
+					<?php the_post_thumbnail('full',array('class'=>'hidden fullImage')); ?>
+					<?php
 				}
 				?>
 				<h4><?php the_title();?></h4>
-				<a href="<?php the_permalink();?>" class="btn btn-default vote-btn" rel="<?php the_ID();?>">Vote</a>
+				<a href="<?php the_permalink();?>" class="btn btn-default vote-btn" rel="<?php the_ID();?>" data-category="<?php echo $category[0]->cat_ID;?>">Vote</a>
 			</li>
 			<?php } 
 			wp_reset_postdata();
@@ -43,15 +55,19 @@ global $post;
 			$query = new WP_Query($default_args);
 			while ( $query->have_posts() ) {
 				$query->the_post();
+				$category = get_the_category();
 			?>
 			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
 				<?php 
 				if ( has_post_thumbnail() ) {
-					the_post_thumbnail('full');
+					the_post_thumbnail(array(150,200));
+					?>
+					<?php the_post_thumbnail('full',array('class'=>'hidden fullImage')); ?>
+					<?php
 				}
 				?>
 				<h4><?php the_title();?></h4>
-				<a href="<?php the_permalink();?>" class="btn btn-default vote-btn" rel="<?php the_ID();?>">Vote</a>
+				<a href="<?php the_permalink();?>" class="btn btn-default vote-btn" rel="<?php the_ID();?>" data-category="<?php echo $category[0]->cat_ID;?>">Vote</a>
 			</li>
 			<?php } 
 			wp_reset_postdata();
@@ -82,7 +98,7 @@ global $post;
 	     		 </div>
 				<div class="modal-body">
 					<div id="vote-form">
-						<form class="form-inline" role="form">
+						<form class="form-inline" role="form" method="post">
 							<div class="form-group">
 								<label class="sr-only" for="corpID">Corp ID</label>
 								<input type="text" required="required" class="form-control" id="corpID" name="corpID" placeholder="Corp ID" />
@@ -90,6 +106,8 @@ global $post;
 							<?php wp_nonce_field('votesubmit') ?>
 							<input type="hidden" id="postID" name="postID" value="" />
 							<input type="hidden" id="pageID" name="pageID" value="<?php echo $post->ID?>" />
+							<input type="hidden" id="termID" name="termID" value="<?php echo $category[0]->cat_ID;?>" />
+							<input type="hidden" id="action" name="action" value="submitvote" />
 							<input type="submit" class="btn btn-default" value="Vote" />
 						</form>
 					</div>
