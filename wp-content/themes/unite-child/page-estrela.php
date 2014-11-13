@@ -32,7 +32,7 @@ global $post;
 				$query->the_post();
 				$category = get_the_category();
 			?>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
 				<?php 
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail(array(150,200));
@@ -57,7 +57,7 @@ global $post;
 				$query->the_post();
 				$category = get_the_category();
 			?>
-			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+			<li class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
 				<?php 
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail(array(150,200));
