@@ -35,7 +35,10 @@ function send_vote(){
 									'datevoted'=>date('Y-m-d'));
 
 					$wpdb->insert("edn_votes",$columns);
-					wp_redirect(add_query_arg( 'n', wp_create_nonce ('success_vote'), get_permalink($_POST['pageID']) ));
+					$count = $wpdb->get_var($wpdb->prepare("select count(ID) from edn_votes where corpid = %d",$corpID));
+					$pID = ($count == 2)?0:$postID;
+					
+					wp_redirect(add_query_arg( array('n'=> wp_create_nonce ('success_vote'),'pid'=>$pID), get_permalink($_POST['pageID']) ));
 					exit;
 				}else{
 					//error, already voted
@@ -57,13 +60,27 @@ function send_vote(){
 $msg = '';
 $msgClass='';
 if (trim($_GET['n'])!='' && wp_verify_nonce($_GET['n'], 'success_vote') ){
-	$msg = 'You have successfully voted. Thank you!';
+	$pID = $_GET['pid'] * 1;
+	if($pID==0){
+		$msg = 'You have successfully voted. Thank you!';
+	} else { 
+		$category = get_the_category($pID);
+		if(count($category) > 0){
+			if($category[0]->cat-slug=='male'){
+				$msg = 'Thank you for voting '.get_the_title($pID).' as the Male Star of the Night. Don’t forget to vote for the Female Star of the Night!';
+			}elseif($category[0]->cat-slug=='female'){
+				$msg = 'Thank you for voting '.get_the_title($pID).' as the Female Star of the Night. Don’t forget to vote for the Male Star of the Night!';
+			}else{
+				$msg = 'You have successfully voted. Thank you!';
+			}
+		}
+	}
 	$msgClass='bg-info';
 }elseif (trim($_GET['n'])!='' && wp_verify_nonce($_GET['n'], 'duplicate_vote') ){
-	$msg = "We know you want your chosen one to win but you can only vote once.";
+	$msg = "Sorry! You can only vote once per category.";
 	$msgClass='bg-danger';
 }elseif (trim($_GET['n'])!='' && wp_verify_nonce($_GET['n'], 'corpid_error') ){
-	$msg = "Your corp ID does not exists. Are you from Nav/SUS?";
+	$msg = "Sorry! Only Navitaire and Accenture SUS employees are allowed to vote.";
 	$msgClass='bg-danger';
 }elseif (trim($_GET['n'])!='' && wp_verify_nonce($_GET['n'], 'security_error') ){
 	$msg = "Nice try but you cannot easily hack me.";
