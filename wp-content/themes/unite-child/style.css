@@ -39,10 +39,3 @@ Unite is based on Underscores http://underscores.me/, (C) 2012-2013 Automattic, 
 		padding:10px;
 		color:#000;
 	  }
-	  .site-branding{
-		background:url(logo.png) no-repeat transparent;
-		width: 350px;
-		height: 175px;
-		display: block;
-		text-indent:-9999px;
-	  }
