@@ -105,7 +105,7 @@ global $post;
 							 </div>
 							<?php wp_nonce_field('votesubmit') ?>
 							<input type="hidden" id="postID" name="postID" value="" />
-							<input type="hidden" id="pageID" name="pageID" value="<?php echo $post->ID?>" />
+							<input type="hidden" id="pageID" name="pageID" value="<?php echo ($post->ID==1)?6:$post->ID;?>" />
 							<input type="hidden" id="termID" name="termID" value="<?php echo $category[0]->cat_ID;?>" />
 							<input type="hidden" id="action" name="action" value="submitvote" />
 							<input type="submit" class="btn btn-default" value="Vote" />

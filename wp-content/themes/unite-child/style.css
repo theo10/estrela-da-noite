@@ -39,3 +39,6 @@ Unite is based on Underscores http://underscores.me/, (C) 2012-2013 Automattic, 
 		padding:10px;
 		color:#000;
 	  }
+	  button.close{
+		color: #FFF;
+	  }
