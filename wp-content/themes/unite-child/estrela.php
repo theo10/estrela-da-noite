@@ -37,7 +37,7 @@ global $post;
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail(array(150,200));
 					?>
-					<?php the_post_thumbnail('full',array('class'=>'hidden fullImage')); ?>
+					<?php the_post_thumbnail('large',array('class'=>'hidden fullImage')); ?>
 					<?php
 				}
 				?>
@@ -62,7 +62,7 @@ global $post;
 				if ( has_post_thumbnail() ) {
 					the_post_thumbnail(array(150,200));
 					?>
-					<?php the_post_thumbnail('full',array('class'=>'hidden fullImage')); ?>
+					<?php the_post_thumbnail('large',array('class'=>'hidden fullImage')); ?>
 					<?php
 				}
 				?>

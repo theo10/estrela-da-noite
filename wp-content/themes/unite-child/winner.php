@@ -33,7 +33,7 @@ $votes = $wpdb->get_results($sql, ARRAY_A);
 			<li class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
 				<?php 
 				if ( has_post_thumbnail($id) ) {
-					echo get_the_post_thumbnail($id,'full',array('class'=>'fullImage')); 
+					echo get_the_post_thumbnail($id,'large',array('class'=>'fullImage')); 
 				}
 				?>
 				<h4><?php echo $vote['post_title'];?></h4>
